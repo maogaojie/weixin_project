@@ -1,0 +1,2 @@
+# weixin_project
+django
