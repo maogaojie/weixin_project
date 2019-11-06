@@ -19,7 +19,7 @@ class Base(models.Model):
 
 # 用户
 class User(Base,models.Model):
-    openid = models.IntegerField()  # 微信返回用户唯一标识码
+    openid = models.CharField(max_length=128,unique=True)  # 微信返回用户唯一标识码
     username = models.CharField(max_length=128)
     invitation_code = models.CharField(max_length=128)  # 邀请码
     invitation_num = models.IntegerField(default=0)  # 发出邀请数量
@@ -52,7 +52,7 @@ class UserInfor(Base,models.Model):
 # 教练
 class Coach(Base,models.Model):
     coach_name = models.CharField(max_length=128)
-    openid = models.CharField(max_length=128)
+    openid = models.CharField(max_length=128,unique=True)
     sig = models.CharField(max_length=128)  # 签名
     grade = models.IntegerField()  # 教练等级
     is_gender = {
@@ -76,6 +76,7 @@ class Coach_Infor(Base,models.Model):
     address = models.CharField(max_length=128)
 
     class Meta:
+
         db_table = 'coachinfor'
 
 

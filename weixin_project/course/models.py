@@ -11,6 +11,7 @@ class City(models.Model):
     class Meta:
         db_table = 'city'
 
+
 # 排课表
 class CourseTime(models.Model):
     start_time = models.DateTimeField()
@@ -22,7 +23,7 @@ class CourseTime(models.Model):
 
 
 class CourseType(models.Model):
-    name = models.CharField(max_length=128) # 课程分类名称
+    name = models.CharField(max_length=128)  # 课程分类名称
 
     class Meta:
         db_table = 'courseType'
@@ -37,16 +38,20 @@ class Course(Base, models.Model):
         (1, '课包支付'),
         (2, '现金支付')
     }
-    pay_type = models.BooleanField()  # 支付方式
+    pay_type = models.BooleanField(choices=pay)  # 支付方式
     information = models.CharField(max_length=255)  # 介绍签名
-    coach = models.ForeignKey(Coach, on_delete=models.CASCADE)
-    address = models.ForeignKey(City, on_delete=models.CASCADE)
-    store_name = models.CharField(max_length=128) # 店名
-    coursetime = models.ForeignKey(CourseTime, on_delete=models.CASCADE)
-    coursetype = models.ForeignKey(CourseType,on_delete=models.CASCADE)
+    coach = models.ForeignKey(Coach, on_delete=models.CASCADE)  # 教练
+    address = models.ForeignKey(City, on_delete=models.CASCADE)  # 地址
+    store_name = models.CharField(max_length=128)  # 店名
+    coursetime = models.ForeignKey(CourseTime, on_delete=models.CASCADE)  # 课程花费的时间
+    coursetype = models.ForeignKey(CourseType, on_delete=models.CASCADE)  # 课程的类型
+    status = {
+        (1, '人数已满'),
+        (2, '未满'),
+        (3, '已结束')
+    }
+    coursestatus = models.IntegerField(choices=status)  # 课程状态
     image = models.ImageField()
 
     class Meta:
         db_table = 'course'
-
-

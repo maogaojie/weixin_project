@@ -120,3 +120,5 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+appid = 'wx3e01b136e25ff2b2'
+secret = '7fd7e71462aa0f11fe254b36371efb26'
