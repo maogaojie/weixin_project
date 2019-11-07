@@ -1,5 +1,5 @@
 from django.db import models
-
+from course.models import Store
 
 # Create your models here.
 
@@ -39,7 +39,7 @@ class UserInfor(Base,models.Model):
         (1, '男'),
         (2, '女')
     }
-    gender = models.BooleanField(choices=is_gender)
+    gender = models.IntegerField(choices=is_gender)
     birthday = models.DateField()
     tall = models.FloatField()  # 身高
     weight = models.FloatField()  # 体重
@@ -50,35 +50,8 @@ class UserInfor(Base,models.Model):
         db_table = 'userinfor'
 
 
-# 教练
-class Coach(Base,models.Model):
-    coach_name = models.CharField(max_length=128)
-    openid = models.CharField(max_length=128,unique=True)
-    sig = models.CharField(max_length=128)  # 签名
-    grade = models.IntegerField()  # 教练等级
-    is_gender = {
-        (1, '男'),
-        (2, '女')
-    }
-    gender = models.BooleanField(choices=is_gender)
-    age = models.IntegerField()
-    tall = models.FloatField()  # 身高
-    weight = models.FloatField()  # 体重
-
-    class Meta:
-        db_table = 'coach'
 
 
-# 教练信息
-class Coach_Infor(Base,models.Model):
-    coach = models.ForeignKey(Coach, on_delete=models.CASCADE)
-    id_number = models.CharField(max_length=28)
-    phone = models.CharField(max_length=11)
-    address = models.CharField(max_length=128)
-
-    class Meta:
-
-        db_table = 'coachinfor'
 
 
 

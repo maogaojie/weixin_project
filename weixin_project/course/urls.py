@@ -21,5 +21,7 @@ from weixin_project import settings
 from course import views
 urlpatterns = [
     path('getcourse/',views.GetCourse.as_view()),
+    path('getcoursedetail/',views.GetCourseDetail.as_view()),
+    path('getstore/',views.GetStoreAPIView.as_view()),
     re_path("^media/(?P<path>.*)/$", serve, {'document_root': settings.MEDIA_ROOT}),
 ]

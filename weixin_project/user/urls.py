@@ -21,6 +21,7 @@ from user import views
 from weixin_project import settings
 
 urlpatterns = [
+
     path('login/', views.GetCode.as_view()),
     re_path("^media/(?P<path>.*)/$", serve, {'document_root': settings.MEDIA_ROOT}),
 
