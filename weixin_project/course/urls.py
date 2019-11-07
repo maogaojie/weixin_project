@@ -20,6 +20,6 @@ from django.views.static import serve
 from weixin_project import settings
 from course import views
 urlpatterns = [
+    path('getcourse/',views.GetCourse.as_view()),
     re_path("^media/(?P<path>.*)/$", serve, {'document_root': settings.MEDIA_ROOT}),
-
 ]

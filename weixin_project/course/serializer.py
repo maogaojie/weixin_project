@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 
 class CourseSerializer(serializers.Serializer):
-    oname = serializers.CharField()
+    name = serializers.CharField()
     money_one = serializers.DecimalField(max_digits=7, decimal_places=2)  # 花费的钱
     money_two = serializers.IntegerField()  # 花费的课包 1个课包，2两个课包。。。
     pay_type = serializers.BooleanField()  # 支付方式
@@ -21,4 +21,14 @@ class CourseSerializer(serializers.Serializer):
         return course
 
 
+class CourseModelSerializer(serializers.ModelSerializer):
+    pay_type = serializers.CharField(source='pay')
+    coach = serializers.CharField(source='coach.coach_name')
+    city = serializers.CharField(source='city.name')
+    coursetime = serializers.CharField(source='coursetime.spend_time')
+    coursetype = serializers.CharField(source='coursetype.name')
+    coursestatus = serializers.CharField(source='status')
 
+    class Meta:
+        model = models.Course
+        fields = '__all__'

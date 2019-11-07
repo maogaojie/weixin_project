@@ -44,6 +44,7 @@ class UserInfor(Base,models.Model):
     tall = models.FloatField()  # 身高
     weight = models.FloatField()  # 体重
     BMI = models.FloatField()
+    image = models.ImageField(upload_to='user') # 头像
 
     class Meta:
         db_table = 'userinfor'
@@ -78,5 +79,6 @@ class Coach_Infor(Base,models.Model):
     class Meta:
 
         db_table = 'coachinfor'
+
 
 
