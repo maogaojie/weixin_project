@@ -9,7 +9,7 @@ from course import models
 from utils.baidu import get_address
 
 
-class GetCourse(APIView):
+class GetCourseAPIView(APIView):
     """
     获取所有课程信息
     """
@@ -40,9 +40,42 @@ class GetCourseDetail(APIView):
 
 
 class GetStoreAPIView(APIView):
-    def get(self, request):
-        lat = request.GET.get('lat')  # 纬度
-        lng = request.GET.get('lng')  # 经度
+    """
+    获取地理位置
+    门店信息
+    """
+
+    def post(self, request):
+        lat = request.data['lat']  # 纬度
+        lng = request.data['lng']  # 经度
         mes = get_address(lat, lng)
         return Response(mes)
+
+
+class GetCoachAPIView(APIView):
+    """
+    获取当前门店教练信息
+    """
+
+    def post(self, request):
+        store_id = request.data['store_id']
+        coach = models.Coach.objects.filter(store_id=store_id).all()
+        coach = serializer.CoachModelSerializer(coach, many=True)
+        mes = {}
+        mes['code'] = 200
+        mes['coach_list'] = coach.data
+        return Response(mes)
+
+
+class GetCourseDirection(APIView):
+    def get(self,request):
+        mes = {}
+        direction = models.CourseDirection.objects.all()
+        direction = serializer.DirectionModelSerializer(direction,many=True)
+        mes['code'] = 200
+        mes['direction'] = direction.data
+        return Response(mes)
+
+
+
 

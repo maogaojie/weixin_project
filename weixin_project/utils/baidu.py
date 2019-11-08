@@ -23,7 +23,6 @@ def get_address(lat, lng):
     mes['city_level'] = address.get('city_level')  # 城市等级
     mes['district'] = address.get('district')  # 县级
     store = models.Store.objects.filter(city__name=address.get('district')).all()
-    print(store)
     store = serializer.StoreModelSerializer(store, many=True)
     mes['store'] = store.data
     return mes

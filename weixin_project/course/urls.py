@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from django.views.static import serve
 
-from weixin_project import settings
 from course import views
+
 urlpatterns = [
-    path('getcourse/',views.GetCourse.as_view()),
-    path('getcoursedetail/',views.GetCourseDetail.as_view()),
-    path('getstore/',views.GetStoreAPIView.as_view()),
-    re_path("^media/(?P<path>.*)/$", serve, {'document_root': settings.MEDIA_ROOT}),
+    path('getcourse/', views.GetCourseAPIView.as_view()),
+    path('getcoursedetail/', views.GetCourseDetail.as_view()),
+    path('getstore/', views.GetStoreAPIView.as_view()),
+    path('getcoach/', views.GetCoachAPIView.as_view()),
+    path('getdirection/', views.GetCourseDirection.as_view()),
 ]

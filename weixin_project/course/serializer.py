@@ -4,18 +4,6 @@ from rest_framework import serializers
 
 # 课程反序列化
 class CourseSerializer(serializers.ModelSerializer):
-    # store_id = serializers.ImageField()
-    # name = serializers.CharField()
-    # money_one = serializers.DecimalField(max_digits=7, decimal_places=2)  # 花费的钱
-    # money_two = serializers.IntegerField()  # 花费的课包 1个课包，2两个课包。。。
-    # pay_type = serializers.BooleanField()  # 支付方式
-    # coach_id = serializers.ImageField()  # 教练
-    # course_number = serializers.IntegerField()  # 课程人数
-    # star_time = serializers.DateTimeField()  # 开始时间
-    # end_time = serializers.DateTimeField()  # 结束时间
-    # coursetype_id = serializers.ImageField()  # 课程的类型
-    # coursestatus = serializers.IntegerField()  # 课程状态
-    # image = serializers.ImageField(upload_to='course')
     class Meta:
         model = models.Course
         fields = '__all__'
@@ -49,14 +37,32 @@ class CourseModelSerializer(serializers.ModelSerializer):
         return [{'name': obj.name} for obj in query_set]
 
 
-# 课程详情反序列化
+# 课程详情
 class CourseDetailModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CourseDetail
         fields = '__all__'
 
 
+# 门店
 class StoreModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Store
-        fields = ['name','opening_hours','image']
+        fields = ['name', 'opening_hours', 'image']
+
+
+# 教练
+class CoachModelSerializer(serializers.ModelSerializer):
+    store = serializers.CharField(source='store.name')
+    gender = serializers.CharField(source='is_gender')
+
+    class Meta:
+        model = models.Coach
+        fields = ['store','coach_name', 'sig', 'grade', 'gender', 'age', 'tall', 'weight']
+
+
+# 方向
+class DirectionModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CourseDirection
+        fields = '__all__'

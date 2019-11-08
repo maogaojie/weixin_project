@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class Base(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
@@ -60,10 +59,10 @@ class Store(models.Model):
 
 
 # 教练
-class Coach(Base,models.Model):
-    store = models.ForeignKey(Store,on_delete=models.CASCADE)
+class Coach(Base, models.Model):
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
     coach_name = models.CharField(max_length=128)
-    openid = models.CharField(max_length=128,unique=True)
+    openid = models.CharField(max_length=128, unique=True)
     sig = models.CharField(max_length=128)  # 签名
     grade = models.IntegerField()  # 教练等级
     is_gender = {
@@ -79,9 +78,17 @@ class Coach(Base,models.Model):
         db_table = 'coach'
 
 
+# 课程方向
+class CourseDirection(models.Model):
+    name = models.CharField(max_length=128) # 舞蹈。。搏击。。
+
+    class Meta:
+        db_table = 'coursedirection'
+
 
 # 课程表
 class Course(Base, models.Model):
+    Direction = models.ForeignKey(CourseDirection, on_delete=models.CASCADE) # 舞蹈。。搏击。。
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
     money_one = models.DecimalField(max_digits=7, decimal_places=2)  # 花费的钱
@@ -122,15 +129,12 @@ class CourseDetail(models.Model):
         db_table = 'coursedetail'
 
 
-
-
 # 教练信息
-class Coach_Infor(Base,models.Model):
+class Coach_Infor(Base, models.Model):
     coach = models.ForeignKey(Coach, on_delete=models.CASCADE)
     id_number = models.CharField(max_length=28)
     phone = models.CharField(max_length=11)
     address = models.CharField(max_length=128)
 
     class Meta:
-
         db_table = 'coachinfor'
