@@ -14,16 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path
+from orders import views
 
-from course import views
+from weixin_project import settings
 
 urlpatterns = [
-    path('getcourse/', views.GetCourseAPIView.as_view()),
-    path('getcoursedetail/', views.GetCourseDetail.as_view()),
-    path('getstore/', views.GetStoreAPIView.as_view()),
-    path('getcoach/', views.GetCoachAPIView.as_view()),
-    path('getdirection/', views.GetCourseDirection.as_view()),
-    path('getcoursedirection/', views.DirectionAPIView.as_view()),
-    path('getprivateCourse/', views.PrivateCourse.as_view()),
+    path('mycoupon/', views.MyCouponAPIView.as_view())
+
 ]

@@ -10,7 +10,7 @@ class UserSerializer(serializers.Serializer):
     succeed_invitation = serializers.IntegerField(default=0)  # 成功邀请的人数
     age = serializers.IntegerField()
     gender = serializers.IntegerField()  # 1男 2女
-
+    image = serializers.CharField()
     def create(self, validated_data):
         user = models.User.objects.create(**validated_data)
         return user

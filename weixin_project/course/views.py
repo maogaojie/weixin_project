@@ -24,6 +24,21 @@ class GetCourseAPIView(APIView):
         return Response(mes)
 
 
+class PrivateCourse(APIView):
+    """
+    获取私教课程
+    """
+    def get(self,request):
+        mes = {}
+        store_id = request.GET.get('store_id')
+        course_list = models.Course.objects.filter(store_id=store_id,course_type=2).all()
+        course_list = serializer.CourseModelSerializer(course_list,many=True)
+        mes['code'] = 200
+        mes['course_list'] = course_list.data
+        return Response(mes)
+
+
+
 class GetCourseDetail(APIView):
     """
     获取课程详情
@@ -68,14 +83,30 @@ class GetCoachAPIView(APIView):
 
 
 class GetCourseDirection(APIView):
-    def get(self,request):
+    """
+     获取课程方向(舞蹈，搏击。。)
+
+    """
+
+    def get(self, request):
         mes = {}
         direction = models.CourseDirection.objects.all()
-        direction = serializer.DirectionModelSerializer(direction,many=True)
+        direction = serializer.DirectionModelSerializer(direction, many=True)
         mes['code'] = 200
         mes['direction'] = direction.data
         return Response(mes)
 
 
+class DirectionAPIView(APIView):
+    """
+    获取一个方向的课程
+    """
 
+    def post(self, request):
+        mes = {}
+        course = models.Course.objects.filter(direction_id=request.data['id']).all()
+        course = serializer.CourseModelSerializer(course, many=True)
+        mes['code'] = 200
+        mes['course_list'] = course.data
+        return Response(mes)
 

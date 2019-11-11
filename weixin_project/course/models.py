@@ -31,6 +31,11 @@ class Region(models.Model):
 
     class Meta:
         db_table = 'region'
+        verbose_name = '城市表'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 class CourseType(models.Model):
@@ -38,6 +43,11 @@ class CourseType(models.Model):
 
     class Meta:
         db_table = 'courseType'
+        verbose_name = '课程分类'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 class Tag(models.Model):
@@ -45,6 +55,11 @@ class Tag(models.Model):
 
     class Meta:
         db_table = 'tag'
+        verbose_name = '标签'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 # 店铺表
@@ -56,6 +71,11 @@ class Store(models.Model):
 
     class Meta:
         db_table = 'store'
+        verbose_name = '店铺表'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 # 教练
@@ -76,19 +96,29 @@ class Coach(Base, models.Model):
 
     class Meta:
         db_table = 'coach'
+        verbose_name = '教练表'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.coach_name
 
 
 # 课程方向
 class CourseDirection(models.Model):
-    name = models.CharField(max_length=128) # 舞蹈。。搏击。。
+    name = models.CharField(max_length=128)  # 舞蹈。。搏击。。
 
     class Meta:
         db_table = 'coursedirection'
+        verbose_name = '课程方向表'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 # 课程表
 class Course(Base, models.Model):
-    Direction = models.ForeignKey(CourseDirection, on_delete=models.CASCADE) # 舞蹈。。搏击。。
+    direction = models.ForeignKey(CourseDirection, on_delete=models.CASCADE)  # 舞蹈。。搏击。。
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
     money_one = models.DecimalField(max_digits=7, decimal_places=2)  # 花费的钱
@@ -112,9 +142,19 @@ class Course(Base, models.Model):
     coursestatus = models.IntegerField(choices=status)  # 课程状态
     image = models.ImageField(upload_to='course')
     tag = models.ManyToManyField(Tag)
+    course_type = {
+        (1, '团教'),
+        (2, '私教')
+    }
+    course_type = models.IntegerField(choices=course_type)
 
     class Meta:
         db_table = 'course'
+        verbose_name = '课程表'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 class CourseDetail(models.Model):

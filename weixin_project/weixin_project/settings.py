@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'user',
     'course',
+    'orders',
 ]
 
 MIDDLEWARE = [
