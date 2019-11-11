@@ -48,7 +48,7 @@ class CourseDetailModelSerializer(serializers.ModelSerializer):
 class StoreModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Store
-        fields = ['name', 'opening_hours', 'image']
+        fields = ['id','name', 'opening_hours', 'image']
 
 
 # 教练

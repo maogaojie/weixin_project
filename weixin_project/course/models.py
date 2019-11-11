@@ -142,11 +142,6 @@ class Course(Base, models.Model):
     coursestatus = models.IntegerField(choices=status)  # 课程状态
     image = models.ImageField(upload_to='course')
     tag = models.ManyToManyField(Tag)
-    course_type = {
-        (1, '团教'),
-        (2, '私教')
-    }
-    course_type = models.IntegerField(choices=course_type)
 
     class Meta:
         db_table = 'course'

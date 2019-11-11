@@ -25,5 +25,6 @@ urlpatterns = [
     path('getcoach/', views.GetCoachAPIView.as_view()),
     path('getdirection/', views.GetCourseDirection.as_view()),
     path('getcoursedirection/', views.DirectionAPIView.as_view()),
-    path('getprivateCourse/', views.PrivateCourse.as_view()),
+    path('getprivatecourse/', views.PrivateCourse.as_view()),
+    path('getpubliccourse/', views.PublicCourseAPIView.as_view()),
 ]
