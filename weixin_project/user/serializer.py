@@ -32,3 +32,12 @@ class UserInforSerializer(serializers.ModelSerializer):
             user_infor.tag.add(tag)
             user_infor.save()
         return user_infor
+
+
+class SubscribeSerializer(serializers.Serializer):
+    """预约表反序列化"""
+    course_id = serializers.IntegerField()
+    user_id = serializers.IntegerField()
+    def create(self, validated_data):
+        plan = models.YuYUE.objects.create(**validated_data)
+        return plan

@@ -7,7 +7,6 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from orders import models
-from orders.serializer import MyCouponSerializer
 from orders import serializer
 
 
@@ -19,11 +18,12 @@ def random_str():
 
 
 class MyCouponAPIView(APIView):
+    """我的优惠卷"""
     def get(self, request):
         mes = {}
 
         coupon_list = models.MyCoupon.objects.filter(user_id=request.GET.get('user_id')).all()
-        coupon_list = MyCouponSerializer(coupon_list, many=True)
+        coupon_list = serializer.MyCouponSerializer(coupon_list, many=True)
         mes['code'] = 200
         mes['coupon_list'] = coupon_list.data
         return Response(mes)

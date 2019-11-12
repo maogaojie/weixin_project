@@ -5,12 +5,12 @@ from orders.models import MyCoupon, Order
 
 # 我的优惠卷
 class MyCouponSerializer(serializers.ModelSerializer):
-    user = serializers.CharField(source='user.name')
+    user = serializers.CharField(source='user.username')
     coupon = serializers.CharField(source='coupon.name')
-    status = serializers.IntegerField(source='is_status')
+    status = serializers.CharField(source='is_status')
 
     class Meta:
-        module = MyCoupon
+        model = MyCoupon
         fields = '__all__'
 
 # 订单序反列化

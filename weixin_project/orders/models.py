@@ -21,8 +21,9 @@ class Base(models.Model):
 
 # 优惠卷
 class Coupon(models.Model):
-    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    # store = models.ForeignKey(Store, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, unique=True)
+    money = models.DecimalField(max_digits=7,decimal_places=2)
 
     class Meta:
         db_table = 'coupon'
@@ -68,4 +69,3 @@ class Order(Base, models.Model):
     class Meta:
         db_table = 'orders'
         verbose_name_plural = '订单表'
-
