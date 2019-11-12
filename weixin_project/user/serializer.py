@@ -11,6 +11,24 @@ class UserSerializer(serializers.Serializer):
     age = serializers.IntegerField()
     gender = serializers.IntegerField()  # 1男 2女
     image = serializers.CharField()
+
     def create(self, validated_data):
         user = models.User.objects.create(**validated_data)
         return user
+
+
+# 用户详情反序列化
+class UserInforSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserInfor
+        fields = '__all__'
+
+    def create(self, validated_data):
+        tag = validated_data.pop('tag')
+
+        user_infor = models.UserInfor.objects.create(**validated_data)
+        for t in tag:
+            t = models.Tag.objects.filter(id=t.id).first()
+            user_infor.tag.add(tag)
+            user_infor.save()
+        return user_infor

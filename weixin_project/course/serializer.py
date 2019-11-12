@@ -46,9 +46,11 @@ class CourseDetailModelSerializer(serializers.ModelSerializer):
 
 # 门店
 class StoreModelSerializer(serializers.ModelSerializer):
+    city = serializers.CharField(source='city.name')
+
     class Meta:
         model = models.Store
-        fields = ['id','name', 'opening_hours', 'image']
+        fields = ['id', 'name', 'opening_hours', 'image', 'city']
 
 
 # 教练
@@ -58,7 +60,7 @@ class CoachModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Coach
-        fields = ['store','coach_name', 'sig', 'grade', 'gender', 'age', 'tall', 'weight']
+        fields = ['store', 'coach_name', 'sig', 'grade', 'gender', 'age', 'tall', 'weight']
 
 
 # 方向
@@ -66,5 +68,3 @@ class DirectionModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CourseDirection
         fields = '__all__'
-
-

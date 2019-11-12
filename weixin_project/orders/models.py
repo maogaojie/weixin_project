@@ -54,7 +54,6 @@ class MyCoupon(Base, models.Model):
         return self.name
 
 
-
 # 订单表
 class Order(Base, models.Model):
     order_number = models.CharField(max_length=255)  # 订单编号
@@ -64,14 +63,9 @@ class Order(Base, models.Model):
     code = models.CharField(max_length=10)  # 到店验证码
     coach = models.ForeignKey(Coach, on_delete=True)  # 教练
     is_coupon = models.BooleanField(default=False)  # 是否使用优惠卷
-    mycoupon = models.ForeignKey(MyCoupon, on_delete=models.SET_NULL, blank=True, null=True) # 优惠卷
+    mycoupon = models.ForeignKey(MyCoupon, on_delete=models.SET_NULL, blank=True, null=True)  # 优惠卷
 
     class Meta:
         db_table = 'orders'
         verbose_name_plural = '订单表'
-
-
-
-
-
 

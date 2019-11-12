@@ -20,6 +20,7 @@ from orders import views
 from weixin_project import settings
 
 urlpatterns = [
-    path('mycoupon/', views.MyCouponAPIView.as_view())
+    path('mycoupon/', views.MyCouponAPIView.as_view()),
+    path('reserve/', views.ReserveAPIView.as_view())
 
 ]

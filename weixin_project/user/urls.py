@@ -19,4 +19,5 @@ from user import views
 
 urlpatterns = [
     path('login/', views.GetCode.as_view()),
+    path('plan/', views.PlanAPIView.as_view()),
 ]

@@ -1,6 +1,8 @@
 from django.db import models
 
 
+
+
 class Base(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
@@ -152,6 +154,7 @@ class Course(Base, models.Model):
         return self.name
 
 
+# 课程详情
 class CourseDetail(models.Model):
     course = models.ForeignKey(Course, on_delete=True)
     course_ntroduction = models.CharField(max_length=255)  # 课程介绍
@@ -159,6 +162,7 @@ class CourseDetail(models.Model):
     crowd = models.CharField(max_length=255)  # 适合人群
     FQA = models.CharField(max_length=255)  # FQA
     notice = models.CharField(max_length=255)  # 注意事项
+    location = models.CharField(max_length=255)  # 详细地理位置
 
     class Meta:
         db_table = 'coursedetail'
@@ -173,3 +177,6 @@ class Coach_Infor(Base, models.Model):
 
     class Meta:
         db_table = 'coachinfor'
+
+
+
