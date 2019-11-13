@@ -10,7 +10,7 @@ class UserSerializer(serializers.Serializer):
     succeed_invitation = serializers.IntegerField(default=0)  # 成功邀请的人数
     age = serializers.IntegerField()
     gender = serializers.IntegerField()  # 1男 2女
-    image = serializers.CharField()
+
 
     def create(self, validated_data):
         user = models.User.objects.create(**validated_data)
@@ -34,10 +34,14 @@ class UserInforSerializer(serializers.ModelSerializer):
         return user_infor
 
 
-class SubscribeSerializer(serializers.Serializer):
-    """预约表反序列化"""
-    course_id = serializers.IntegerField()
+# 用户详情反序列化
+class UserInformationSerializer(serializers.Serializer):
     user_id = serializers.IntegerField()
+    height = serializers.CharField(allow_null=True)
+    weight = serializers.CharField(allow_null=True)
+    phone = serializers.CharField(allow_null=True)
+
     def create(self, validated_data):
-        plan = models.YuYUE.objects.create(**validated_data)
-        return plan
+        user_infor = models.UserInformation.objects.create(**validated_data)
+
+        return user_infor

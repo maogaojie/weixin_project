@@ -17,10 +17,10 @@ class GetCode(APIView):
     """
 
     def post(self, request):
+
         mes = {}
         data = request.data.copy()
         code = data['code']
-        print(code)
         openid = get_openid(code)
         user = models.User.objects.filter(openid=openid).first()
         if user:
@@ -28,9 +28,10 @@ class GetCode(APIView):
             mes['message'] = '登录成功'
             mes['user_id'] = user.id
         else:
+
             data['openid'] = openid
-            data['invitation_code'] = uuid.uuid1()
-            print(data)
+            data['invitation_code'] = str(uuid.uuid1())
+            data['age'] = 0
             user = serializer.UserSerializer(data=data)
             if user.is_valid():
                 user.save()
@@ -52,40 +53,12 @@ class UserInforAPIView(APIView):
     def post(self, request):
         mes = {}
         data = request.data
-        user = serializer.UserInforSerializer(data=data)
+        print(data)
+        user = serializer.UserInformationSerializer(data=data)
         if user.is_valid():
             user.save()
             mes['code'] = 200
         else:
+            print(user.errors)
             mes['code'] = 1001
-        return Response(mes)
-
-
-class SubscribeAPIView(APIView):
-    """
-    预约
-    """
-    def post(self, request):
-        mes = {}
-        data = request.data
-        if models.YuYUE.objects.filter(course_id=data['course_id'],user_id=data['user_id']).first():
-            mes['code'] = 200
-            mes['message'] = '已经预约'
-        subscribe = serializer.SubscribeSerializer(data=data)
-        if subscribe.is_valid:
-            subscribe.save()
-            mes['code'] = 200
-        else:
-            mes['code'] = 1001
-        return Response(mes)
-
-
-class MySubscribe(APIView):
-    """
-    我的预约
-    """
-    def get(self, request):
-        mes = {}
-        yuyue_list = models.YuYUE.objects.filter(user_id=user_id).all()
-
         return Response(mes)

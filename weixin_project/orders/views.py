@@ -21,8 +21,12 @@ class MyCouponAPIView(APIView):
     """我的优惠卷"""
     def get(self, request):
         mes = {}
-
-        coupon_list = models.MyCoupon.objects.filter(user_id=request.GET.get('user_id')).all()
+        user_id = request.GET.get('user_id')
+        status = request.GET.get('status')
+        if not status:
+            status = 1
+        print(status)
+        coupon_list = models.MyCoupon.objects.filter(user_id=user_id,status=status).all()
         coupon_list = serializer.MyCouponSerializer(coupon_list, many=True)
         mes['code'] = 200
         mes['coupon_list'] = coupon_list.data

@@ -19,8 +19,6 @@ from user import views
 
 urlpatterns = [
     path('login/', views.GetCode.as_view()),
-    path('subscribe/', views.SubscribeAPIView.as_view()), # 预约
-    path('mysubscribe/',views.MySubscribe.as_view()), # 我的预约
     path('userinfor/',views.UserInforAPIView.as_view()), # 用户信息
 
 

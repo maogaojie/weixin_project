@@ -75,12 +75,12 @@ class UserInfor(Base, models.Model):
     def __str__(self):
         return self.username
 
-
-# 预约表
-class YuYUE(models.Model):
-    course = models.ForeignKey(Course, on_delete=True)
-    user = models.ForeignKey(User, on_delete=True)
+# 用户信息
+class UserInformation(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    height = models.CharField(max_length=5,null=True,blank=True,default='')
+    weight = models.CharField(max_length=5,null=True,blank=True,default='')
+    phone = models.CharField(max_length=11,null=True,blank=True,default='')
 
     class Meta:
-        db_table = 'yuyue'
-        verbose_name_plural = '预约表'
+        db_table = 'userinformation'

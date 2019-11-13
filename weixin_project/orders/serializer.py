@@ -1,13 +1,23 @@
 from rest_framework import serializers
 
-from orders.models import MyCoupon, Order
+
+
+
+from orders.models import MyCoupon, Order, Coupon
+
+# 优惠
+class CouponModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coupon
+        fields = '__all__'
 
 
 # 我的优惠卷
+
 class MyCouponSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.username')
-    coupon = serializers.CharField(source='coupon.name')
-    status = serializers.CharField(source='is_status')
+    coupon = CouponModelSerializer()
+
 
     class Meta:
         model = MyCoupon
