@@ -57,15 +57,14 @@ class MyCoupon(Base, models.Model):
 
 # 订单表
 class Order(Base, models.Model):
-    order_number = models.CharField(max_length=255)  # 订单编号
-    money = models.CharField(max_length=15)  # 金额
+    order_number = models.CharField(max_length=191)  # 订单编号
     course = models.ForeignKey(Course, on_delete=True)  # 课程
     user = models.ForeignKey(User, on_delete=True)  # 用户
-    code = models.CharField(max_length=10)  # 到店验证码
-    coach = models.ForeignKey(Coach, on_delete=True)  # 教练
+    code = models.CharField(max_length=11)  # 到店验证码
+    coach = models.CharField(max_length=128)  # 教练
     is_coupon = models.BooleanField(default=False)  # 是否使用优惠卷
     mycoupon = models.ForeignKey(MyCoupon, on_delete=models.SET_NULL, blank=True, null=True)  # 优惠卷
-
+    total_money = models.DecimalField(max_digits=7,decimal_places=2) # 总价格
     class Meta:
         db_table = 'orders'
         verbose_name_plural = '订单表'

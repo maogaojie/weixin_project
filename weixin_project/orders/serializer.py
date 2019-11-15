@@ -26,14 +26,13 @@ class MyCouponSerializer(serializers.ModelSerializer):
 # 订单序反列化
 class OrderSerializer(serializers.Serializer):
     order_number = serializers.CharField(max_length=255)  # 订单编号
-    money = serializers.CharField(max_length=15)  # 金额
     course_id = serializers.IntegerField()  # 课程
     user_id = serializers.IntegerField()  # 用户
     code = serializers.CharField()  # 到店验证码
-    coach_id = serializers.IntegerField()  # 教练
+    coach = serializers.CharField()  # 教练
     is_coupon = serializers.BooleanField(default=False)  # 是否使用优惠卷
     mycoupon_id = serializers.IntegerField(allow_null=True)  # 优惠卷
-
+    total_money = serializers.DecimalField(max_digits=7,decimal_places=2)
     def create(self, validated_data):
         order = Order.objects.create(**validated_data)
         return order

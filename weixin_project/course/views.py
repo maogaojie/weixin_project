@@ -56,7 +56,7 @@ class PublicCourseAPIView(APIView):
         mes = {}
         data = request.data
         print(data)
-        date = str(data['time'])
+        date = str(data['time']).replace('/','-')
         if not data['time']:
             date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         first_time = datetime.datetime.strptime(date+' 00:00:00', '%Y-%m-%d %H:%M:%S')

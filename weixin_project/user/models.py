@@ -76,11 +76,11 @@ class UserInfor(Base, models.Model):
         return self.username
 
 # 用户信息
-class UserInformation(models.Model):
+class UserInformation(Base,models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    height = models.CharField(max_length=5,null=True,blank=True,default='')
-    weight = models.CharField(max_length=5,null=True,blank=True,default='')
-    phone = models.CharField(max_length=11,null=True,blank=True,default='')
+    height = models.CharField(max_length=5,null=True,blank=True)
+    weight = models.CharField(max_length=5,null=True,blank=True)
+    phone = models.CharField(max_length=11,null=True,blank=True)
 
     class Meta:
         db_table = 'userinformation'

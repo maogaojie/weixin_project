@@ -43,5 +43,21 @@ class UserInformationSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user_infor = models.UserInformation.objects.create(**validated_data)
-
         return user_infor
+    def update(self, instance, validated_data):
+        print(instance)
+        instance.user_id = validated_data['user_id']
+        instance.height = validated_data['height'] if validated_data.get('height')!='0' else instance.height
+        instance.weight = validated_data['weight'] if validated_data.get('weight')!='0' else instance.weight
+        instance.phone = validated_data['phone'] if validated_data.get('phone')!='0' else instance.phone
+        instance.save()
+
+        return instance
+
+
+class UserInformationModelSerializer(serializers.ModelSerializer):
+
+    """ 用户详情序列化 """
+    class Meta:
+        model = models.UserInformation
+        fields = '__all__'

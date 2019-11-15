@@ -33,6 +33,9 @@ class MyCouponAPIView(APIView):
         return Response(mes)
 
 
+
+
+
 class ReserveAPIView(APIView):
     """
     生成订单
@@ -40,12 +43,17 @@ class ReserveAPIView(APIView):
     def post(self, request):
         mes = {}
         data = request.data.copy()
+        if data['is_coupon'] == True:
+            models.MyCoupon.filter(id=data['mycoupon_id']).update(status=2)
         data['order_number'] = str(uuid.uuid1())
         data['code'] = random_str()
+        print(data)
         order = serializer.OrderSerializer(data=data)
+
         if order.is_valid():
             order.save()
             mes['code'] = 200
         else:
+            print(order.errors)
             mes['code'] = 1001
         return Response(mes)

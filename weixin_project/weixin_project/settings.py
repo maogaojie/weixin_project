@@ -49,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 'middlewares.UserMiddleware.LoginMiddleware',
 ]
 
 ROOT_URLCONF = 'weixin_project.urls'
@@ -123,3 +125,4 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 appid = 'wx3e01b136e25ff2b2'
 secret = '7fd7e71462aa0f11fe254b36371efb26'
+key = '7fd7e71462aa0f11'
